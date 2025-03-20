@@ -9,7 +9,7 @@ public class ChoiceManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,12 +17,6 @@ public class ChoiceManager : MonoBehaviour
     {
 
     }
-#nullable enable
-    public void HandleChoice(GameObject[]? pair)
-    {
-
-    }
-#nullable disable
 
 }
 

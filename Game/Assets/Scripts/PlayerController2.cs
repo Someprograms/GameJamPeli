@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class PlayerController2 : MonoBehaviour
 {
@@ -11,7 +13,6 @@ public class PlayerController2 : MonoBehaviour
     public int points = 0;
     public TMP_Text pointText;
     public Rigidbody rb;
-    public Volume volume;
     public float speed;
     public bool isAlive = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,8 +78,19 @@ public class PlayerController2 : MonoBehaviour
         if(other.gameObject.name == "Finish")
         {
             //Win
+            if (!PlayerPrefs.HasKey("CodeComplete"))
+            {
+                if (PlayerPrefs.HasKey("Completed"))
+                    PlayerPrefs.SetInt("Completed", PlayerPrefs.GetInt("Completed") + 1);
+                else
+                    PlayerPrefs.SetInt("Completed", 1);
+                Debug.Log(PlayerPrefs.GetInt("Completed"));
+                PlayerPrefs.SetString("CodeComplete", "true");
+
+            }
             
-            PlayerPrefs.SetInt("Completed", PlayerPrefs.GetInt("Completed") + 1);
+            SceneManager.LoadScene("SampleScene");
+
         }
     }
     public void PlayerDeath()
@@ -86,6 +98,14 @@ public class PlayerController2 : MonoBehaviour
         isAlive = false;
         rb.isKinematic = true;
         gameObject.GetComponentInChildren<Animator>().enabled = false;
+        StartCoroutine(Wait());
+        
+    }
+
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("LeetCodeMiniGame");
     }
 
 }
