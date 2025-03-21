@@ -63,11 +63,9 @@ public class PlayerController2 : MonoBehaviour
 
                 points--;
                 pointText.text = ($"points: {points}");
-                if(points < 1)
-                {
-                    PlayerDeath();
+                PlayerDeath();
 
-                }
+                
             }
            
         }
